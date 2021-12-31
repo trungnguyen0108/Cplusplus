@@ -6,4 +6,9 @@
   * Tích chập xử lí ảnh
 ### Bài 4
   * Xuất ma trận hình xoắn ốc
+### Bài 5
+  * Hoán vị k phần tử tập n
+### Bài 6
+  * Cộng, trừ, nhân 2 vector
+
   
