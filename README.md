@@ -10,5 +10,7 @@
   * Hoán vị k phần tử tập n
 ### Bài 6
   * Cộng, trừ, nhân 2 vector
+### Bài 7,8
+  * Bài tập với file
 
   
