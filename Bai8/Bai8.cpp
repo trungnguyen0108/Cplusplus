@@ -9,8 +9,6 @@ namespace fs = std::filesystem;
 
 int main()
 {
-    std::map<std::string, int> a;
-
     std::string word;
     std::cin >> word;
 
@@ -19,12 +17,12 @@ int main()
     {
         std::fstream inFile(entry.path());
         std::string tmp;
-        
+
         while (inFile >> tmp)
         {
-            
-            if(tmp == word)
-            {   
+
+            if (tmp == word)
+            {
                 {
                     std::cout << entry.path().filename() << "\n";
                 }
@@ -32,6 +30,5 @@ int main()
         }
 
         inFile.close();
-        
     }
 }
