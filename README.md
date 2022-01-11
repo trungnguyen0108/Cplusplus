@@ -14,4 +14,6 @@
   * Bài tập với file
 ### Bài 9
   * Hướng đối tượng phân số và số ảo
-  
+### Bài 10
+  * Xây dựng các toán tử cho phân số
+
