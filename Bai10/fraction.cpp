@@ -1,7 +1,4 @@
-#include <iostream>
 #include "fraction.hpp"
-#include <algorithm>
-#include <fstream>
 
 Fraction::Fraction()
 {
@@ -11,58 +8,62 @@ Fraction::Fraction()
 
 Fraction::Fraction(int num, int den)
 {
-    this->num = num;
     if (den == 0)
-    {
-        std::cout << "the denominator must not be zero";
-        exit(0);
-    }
-    else
-        this->den = den;
+        throw new std::invalid_argument("Denominator cannot be zero");
+    
+    this->num = num;
+    this->den = den;
+    Compact();
 }
 
-Fraction Fraction::operator+(const Fraction &fraction)
+Fraction::Fraction(int number) 
+{
+    num = number;
+    den = 1;
+}
+
+Fraction Fraction::operator+(const Fraction &fraction) const
 {
     return {num * fraction.den + den * fraction.num, den * fraction.den};
 }
 
-Fraction Fraction::operator-(const Fraction &fraction)
+Fraction Fraction::operator-(const Fraction &fraction) const
 {
     return {num * fraction.den - den * fraction.num, den * fraction.den};
 }
 
-Fraction Fraction::operator*(const Fraction &fraction)
+Fraction Fraction::operator*(const Fraction &fraction) const
 {
     return {num * fraction.num, den * fraction.den};
 }
 
-Fraction Fraction::operator/(const Fraction &fraction)
+Fraction Fraction::operator/(const Fraction &fraction) const
 {
     return {num * fraction.den, den * fraction.num};
 }
 
-Fraction Fraction::operator+=(const Fraction &fraction)
+Fraction& Fraction::operator+=(const Fraction &fraction)
 {
     num = num * fraction.den + den * fraction.num;
     den = den + fraction.den;
     return *this;
 }
 
-Fraction Fraction::operator-=(const Fraction &fraction)
+Fraction& Fraction::operator-=(const Fraction &fraction)
 {
     num = num * fraction.den - den * fraction.num;
     den = den + fraction.den;
     return *this;
 }
 
-Fraction Fraction::operator*=(const Fraction &fraction)
+Fraction& Fraction::operator*=(const Fraction &fraction)
 {
     num = num * fraction.num;
     den = this->den * fraction.den;
     return *this;
 }
 
-Fraction Fraction::operator/=(const Fraction &fraction)
+Fraction& Fraction::operator/=(const Fraction &fraction)
 {
     num = num * fraction.den;
     den = this->den * fraction.num;
@@ -70,14 +71,14 @@ Fraction Fraction::operator/=(const Fraction &fraction)
     return *this;
 }
 
-Fraction Fraction::operator++()
+Fraction& Fraction::operator++()
 {
     num = num + den;
     den = den * 1;
     return *this;
 }
 
-Fraction Fraction::operator--()
+Fraction& Fraction::operator--()
 {
     num = num - den;
     den = den * 1;
@@ -100,32 +101,9 @@ Fraction Fraction::operator--(int i)
     return tmp;
 }
 
-bool Fraction::operator>(const Fraction &fraction)
+Fraction::operator double() const
 {
-    if ((num / den) > (fraction.num / fraction.den))
-        return true;
-    return false;
-}
-
-bool Fraction::operator<(const Fraction &fraction)
-{
-    if ((num / den) < (fraction.num / fraction.den))
-        return true;
-    return false;
-}
-
-bool Fraction::operator==(const Fraction &fraction)
-{
-    if ((num / den) == (fraction.num / fraction.den))
-        return true;
-    return false;
-}
-
-bool Fraction::operator!=(const Fraction &fraction)
-{
-    if ((num / den) == (fraction.num / fraction.den))
-        return false;
-    return true;
+    return (double)num / den;
 }
 
 void Fraction::Compact()
@@ -133,6 +111,15 @@ void Fraction::Compact()
     int value = std::__gcd(num, den);
     num = num / value;
     den = den / value;
+}
+
+void Fraction::Set(int num, int den) 
+{
+    if (den == 0)
+        throw std::invalid_argument("Denominator cannot be zero");
+        
+    this->num = num;
+    this->den = den;
 }
 
 std::string Fraction::ToString() const
@@ -149,4 +136,14 @@ std::ostream &operator<<(std::ostream &outStream, const Fraction &fraction)
 {
     outStream << fraction.ToString();
     return outStream;
+}
+
+std::istream &operator>>(std::istream& inStream, Fraction& fraction)
+{
+    int num, den;
+
+    inStream >> num >> den;
+
+    fraction.Set(num, den);
+    return inStream;
 }

@@ -7,10 +7,13 @@
 
 namespace fs = std::filesystem;
 
+std::vector<std::string> file;
+
 int main()
 {
     std::string word;
     std::cin >> word;
+    static std::map<std::string, int> a;
 
     std::string path = "vocabulary";
     for (const auto &entry : fs::directory_iterator(path))
@@ -20,12 +23,17 @@ int main()
 
         while (inFile >> tmp)
         {
-
             if (tmp == word)
             {
+
+                // dem so lan xuat hien trong 1 file
+                for (auto file : entry.path().filename())
                 {
-                    std::cout << entry.path().filename() << "\n";
+                    a[tmp]++;
+                    std::cout << file << "\n";
                 }
+                std::cout << a[tmp];
+                a[tmp] = 0;
             }
         }
 
