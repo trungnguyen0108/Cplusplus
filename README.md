@@ -20,3 +20,6 @@
   * Giải sodoku
 ### Bài 12
   * Chuẩn hóa chuỗi kí tự thành tên riêng
+### Bài 14
+  * Thuật toán sắp xếp
+ 
