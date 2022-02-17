@@ -5,7 +5,7 @@
 #include <ctime>
 #include <random>
 #include <vector>
-#define N 100
+#define N 1000000
 
 using namespace std;
 
@@ -37,9 +37,7 @@ void Search(int key)
         {
             std::cout << tmp;
         }
-       
     }
-     std::cout << "valid";
 }
 
 int main()
